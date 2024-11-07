@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _13_5
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+        }
+
+        public class Unit
+        {
+            public string Name;
+            public int Level;
+            public Stat[] StatsArr;
+            public bool IsFaint;
+
+            public Unit()
+            {
+                Name = "Unknown";
+                Level = 0;
+            }
+            
+        }
+
+
+        public StatCalculater()
+        {
+
+        }
+
+        Dictionary<int, PokemonID> PokemonDic = new Dictionary<int, PokemonID>()
+        {
+            {1, }
+        };
+
+        public class PokemonID
+        {
+            
+        }
+
+        public class Stat{
+            private string Name{get; set;}
+            private int StatValue{get; set;}  //노력치 + 기본치(그치만 편의상 노력치 빼자..)
+            private int ApplyValue{get; set;}
+
+            public Stat(string name, int statValue)   //초기 스탯 설정
+            {
+                Name = name;
+                StatValue = statValue;
+                ApplyValue = statValue;
+            }
+        }
+
+        public class BattleStat : Stat
+        {
+            private int RankChange{get; set;}   //배틀 중 스탯의 변화.
+            private int maxRank = 6;
+            public Stat(string name, int statValue)   //초기 스탯 설정
+            {
+                Name = name;
+                StatValue = statValue;
+                RankChange = 0;
+                ApplyValue = statValue;
+            }
+            // 배틀 중 스탯 변화
+            public Stat(int rank)
+            {
+                RankChange(rank);
+                ApplyRankChange();
+            }
+
+            public RankChange(int rank)
+            {
+                if(RankChange > maxRank)
+                {
+                    RankChange = maxRank;
+                }
+                else if(Rankchange < (-1*maxRank))
+                {
+                    RankChange = (-1)*maxRank;
+                }
+                else
+                {
+                    RankChange += rank;
+                }
+            }
+            public ApplyRankChange()
+            {
+                if(RankChange > 0)
+                {
+                    ApplyValue = statValue * (1 + RankChange * 0.5);
+                }
+                else if(RankChange < 0)
+                {
+                    ApplyValue = statValue * (2/(2+RankChange));
+                }
+                else 
+                {
+                    ApplyValue = statValue;
+                }
+            }
+        }
+        public class HealthStat : Stat
+        {
+            
+        }
+        public delegate void BattleEvent();
+
+        public class BattleEventManager
+        {
+            public event BattleEvent 
+        }
+        
+    }
+}
